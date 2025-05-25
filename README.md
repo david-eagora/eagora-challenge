@@ -1,139 +1,81 @@
-# 🐘 Prueba Técnica Laravel + Livewire – eAgora
+# 🐘 Laravel + Livewire Technical Challenge – eAgora
+
+Este proyecto consiste en una mini-aplicación desarrollada con Laravel y Livewire para consumir, visualizar y filtrar incidencias públicas (issues) de un repositorio real de GitHub.
+
+---
 
 ## 🎯 Objetivo
 
-Desarrollar una mini-aplicación con Laravel y Livewire que consuma, visualice y filtre incidencias públicas (issues) del repositorio de Laravel Framework en GitHub.
+Evaluar habilidades backend (Laravel) y frontend (Livewire) mediante el consumo de un endpoint real con datos de incidencias. Se han de pasar los tests. El candidato es libre de añadir más tests. El candidato es libre de emplear cualquier libreria y arquitectura deseada. El tiempo máximo no debería superar las 2h.
 
-## 📡 Endpoint a Consumir
+---
 
-```
+## 📡 Endpoint Público
+
+Usamos el endpoint de GitHub Issues del repositorio de Laravel:
+
 https://api.github.com/repos/laravel/framework/issues
-```
 
-Este endpoint devuelve una lista de tickets con los siguientes campos:
+
+Este endpoint devuelve una lista de tickets (issues) con campos como:
+
 - `id`, `number`, `title`, `state`
 - `user.login`, `user.avatar_url`
 - `labels[]`, `created_at`, `body`, etc.
 
-## 🔧 Requisitos Técnicos
+---
 
-### Backend (Laravel)
+## 🔧 Backend (Laravel)
+
+### Ejercicios propuestos:
 
 1. **Consumo de Issues**
-   - Consumir el endpoint y devolver un array limpio con:
+   - Consumir el endpoint y devolver un array limpio con los siguientes campos:
      - `id`, `number`, `title`, `state`, `user.login`, `labels[]`, `created_at`
 
 2. **Análisis por Estado**
-   - Calcular cuántos tickets están abiertos y cuántos cerrados
+   - Calcular cuántos tickets están abiertos y cuántos cerrados.
 
 3. **Top Usuarios**
-   - Mostrar el top 5 de usuarios con más issues creados
+   - Mostrar el top 5 de usuarios con más issues creados.
 
 4. **Tickets Recientes**
-   - Filtrar issues creados en los últimos 7 días
+   - Filtrar issues creados en los últimos 7 días.
 
-5. **Paginación Manual**
-   - Limitar a 20 issues por página
-   - Implementar paginación
+5. **Paginación manual (opcional)**
+   - Limitar la cantidad de issues devueltos a 20 y paginar manualmente con `skip()` y `take()`.
 
-### Frontend (Livewire)
+---
+
+## 🖥️ Frontend (Livewire)
+
+### Funcionalidades:
 
 1. **Listado de Tickets**
-   - Mostrar título, autor, avatar, estado y etiquetas
-   - Diseño responsive con Tailwind CSS
+   - Muestra título, autor, avatar, estado y etiquetas.
 
 2. **Búsqueda en Tiempo Real**
-   - Campo de búsqueda que filtra por título
-   - Implementar con `wire:model`
+   - Campo de búsqueda que filtra por título (reactivo con `wire:model`).
 
 3. **Filtro por Estado**
-   - Dropdown para seleccionar `open` / `closed`
+   - Dropdown para seleccionar `open` / `closed`.
 
-4. **Vista Detallada**
-   - Al hacer clic en un ticket, mostrar:
-     - `body`
-     - Cantidad de comentarios
-     - Enlace a GitHub
+4. **Ver Detalles**
+   - Al hacer clic en un ticket, mostrar más detalles: `body`, cantidad de comentarios, enlace a GitHub.
 
-5. **Estadísticas en Tiempo Real**
-   - Mostrar contadores de tickets abiertos/cerrados
-   - Mostrar top usuarios
-   - Mostrar tickets recientes
+5. **(Opcional) Etiquetas como chips filtrables**
 
-## 🚀 Setup del Proyecto
+---
+
+## 🚀 Setup Rápido
 
 ```bash
-# Clonar el repositorio
 git clone
 cd eagora-challenge
 
-# Iniciar Docker
 docker compose up -d --build
 
-# Instalar dependencias
 composer install
-npm install
-
-# Configurar entorno
 cp .env.example .env
 php artisan key:generate
-
-# Compilar assets
-npm run dev
-```
-
-## 🧪 Tests
-
-El proyecto debe incluir tests automatizados usando Pest:
-
-```bash
-# Ejecutar tests
-./vendor/bin/pest
-```
-
-### Tests Requeridos
-- Tests de API para endpoints
-- Tests de componente Livewire
-- Tests de integración
-
-## 🛠️ Tecnologías a Utilizar
-
-- Laravel 10.x
-- Livewire 3.x
-- Tailwind CSS
-- Pest PHP
-- Docker
-- GitHub API
-
-## 📝 Criterios de Evaluación
-
-1. **Calidad del Código**
-   - Clean Code
-   - Patrones de diseño
-   - Manejo de errores
-
-2. **Funcionalidad**
-   - Implementación completa de requisitos
-   - Interactividad en tiempo real
-   - Experiencia de usuario
-
-3. **Tests**
-   - Cobertura de tests
-   - Calidad de las pruebas
-   - Casos de uso cubiertos
-
-## ⏱️ Tiempo Estimado
-
-- 2 horas
-- Esta prueba técnica está diseñada para evaluar habilidades en Laravel, Livewire, y desarrollo full-stack en general. Sabemos que en menos de 2h es difícil cubrir todos los casos de uso, pero nos interesa saber hasta donde llegais, y que consideráis más y menos importante para cubrir en este tiempo.*
-
-
-## 📄 Entrega
-
-1. Repositorio en GitHub
-2. README con instrucciones
-3. Tests implementados
-4. Código documentado
-
----
 
