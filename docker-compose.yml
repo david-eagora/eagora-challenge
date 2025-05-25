@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+    app:
+        build:
+            context: .
+        image: laravel-app
+        container_name: laravel-app
+        volumes:
+            - .:/var/www
+            - vendor_data:/var/www/vendor
+        ports:
+            - "8000:8000"
+        working_dir: /var/www
+        command: sh -c "composer install && php artisan serve --host=0.0.0.0 --port=8000"
+
+volumes:
+    vendor_data:
