@@ -6,7 +6,7 @@ Este proyecto consiste en una mini-aplicación desarrollada con Laravel y Livewi
 
 ## 🎯 Objetivo
 
-Evaluar habilidades backend (Laravel, HTTP Client, Collections) y frontend (Livewire) mediante el consumo de un endpoint real con datos de incidencias.
+Evaluar habilidades backend (Laravel) y frontend (Livewire) mediante el consumo de un endpoint real con datos de incidencias. Se han de pasar los tests. El candidato es libre de añadir más tests. El candidato es libre de emplear cualquier libreria y arquitectura deseada. El tiempo máximo no debería superar las 2h.
 
 ---
 
@@ -48,8 +48,6 @@ Este endpoint devuelve una lista de tickets (issues) con campos como:
 ---
 
 ## 🖥️ Frontend (Livewire)
-
-### Componente: `<livewire:ticket-list />`
 
 ### Funcionalidades:
 
