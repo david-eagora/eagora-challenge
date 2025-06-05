@@ -13,7 +13,8 @@ class GitHubService
     {
         $response = Http::withHeaders([
             'Accept' => 'application/vnd.github.v3+json',
-            'User-Agent' => 'Laravel-Challenge-App'
+            'User-Agent' => 'Laravel-Challenge-App',
+            'Authorization' => 'token ' . env('GITHUB_TOKEN'),
         ])->get($this->endpoint);
 
         if ($response->failed()) {
@@ -25,7 +26,7 @@ class GitHubService
             'number' => $issue['number'],
             'title' => $issue['title'],
             'state' => $issue['state'],
-            'user' => [
+            'user' => (object)[
                 'login' => $issue['user']['login'],
                 'avatar_url' => $issue['user']['avatar_url'],
             ],
@@ -44,19 +45,32 @@ class GitHubService
         ];
     }
 
+    public function getIssueByNumber(int $issueNumber): ?object
+    {
+        $response = $response = Http::withHeaders([
+            'Accept' => 'application/vnd.github.v3+json',
+            'User-Agent' => 'Laravel-Challenge-App',
+            'Authorization' => 'token ' . env('GITHUB_TOKEN'),
+        ])->get($this->endpoint . '/' . $issueNumber);
+
+        if ($response->failed()) {
+            return null;
+        }
+
+        return (object) $response->json();
+    }
+
     public function getTopAuthors(int $limit = 5): Collection
     {
-        $issues = $this->getIssues();
-
-        return $issues
+        return $this->getIssues()
             ->groupBy('user.login')
-            ->map(fn($group) => count($group))
-            ->sortDesc()
-            ->take($limit)
-            ->map(fn($count, $user) => [
-                'login' => $user,
-                'count' => $count,
+            ->map(fn($issues, $user) => (object)[
+                'user' => $user,
+                'count' => $issues->count(),
+                'avatar_url' => $issues->first()->user->avatar_url ?? null,
             ])
+            ->sortByDesc('count')
+            ->take($limit)
             ->values();
     }
 
@@ -65,7 +79,7 @@ class GitHubService
         $issues = $this->getIssues();
 
         return $issues->filter(function ($issue) use ($days) {
-            return now()->diffInDays($issue['created_at']) <= $days;
+            return now()->diffInDays($issue->created_at) <= $days;
         })->values();
     }
 }
